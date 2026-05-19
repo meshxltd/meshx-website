@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Information Security Policy — MeshX Software Ltd</title>
+  <meta name="description" content="MeshX Software Ltd information security policy covering access control, encryption, incident response, and more." />
+  <link rel="icon" href="assets/mx_logo_bw.png" type="image/png" />
+  <link rel="stylesheet" href="legal.css" />
+  <style>
+    .policy-meta-table { margin: 0.75rem 0 1.5rem; }
+    .policy-meta-table td { padding: 0.2rem 1rem 0.2rem 0; vertical-align: top; color: var(--muted); }
+    .policy-meta-table td:first-child { font-weight: 600; color: var(--text); white-space: nowrap; }
+    .toc { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.5rem; margin: 1.5rem 0 2rem; }
+    .toc h2 { border: none; margin-top: 0.5rem; font-size: 1rem; padding-bottom: 0; }
+    .toc ol { padding-left: 1.25rem; margin: 0.5rem 0; }
+    .toc li { margin: 0.3rem 0; font-size: 0.95rem; }
+    h3 { font-family: var(--font-display); font-size: 0.975rem; font-weight: 600; color: var(--text); margin: 1.5rem 0 0.25rem; }
+    .info-table { width: 100%; border-collapse: collapse; margin: 0.75rem 0; }
+    .info-table th { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 2px solid var(--border); color: var(--text); font-weight: 600; font-size: 0.9rem; }
+    .info-table td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); color: var(--muted); font-size: 0.95rem; }
+    .info-table tr:last-child td { border-bottom: none; }
+    @media print {
+      body { background: #fff; }
+      .legal-header, .legal-footer { display: none; }
+      .legal-wrap { padding: 1.5cm; max-width: 100%; min-height: auto; }
+      h2 { page-break-after: avoid; }
+      .toc { page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="legal-header">
+    <a href="index.html">
+      <img src="assets/mx_meshx_logo.png" width="240" height="80" alt="MeshX" />
+    </a>
+  </header>
+
+  <div class="legal-wrap">
+    <h1>Information Security Policy</h1>
+    <p class="meta"><strong>MeshX Software Ltd</strong> &middot; Document ref: MESHX-ISP-001</p>
+
+    <table class="policy-meta-table">
+      <tr><td>Version:</td><td>1.0</td></tr>
+      <tr><td>Classification:</td><td>Public</td></tr>
+      <tr><td>Effective date:</td><td>6 April 2026</td></tr>
+      <tr><td>Next scheduled review:</td><td>6 October 2026</td></tr>
+      <tr><td>Owner:</td><td>Jamie, Director &mdash; MeshX Software Ltd</td></tr>
+      <tr><td>Approved by:</td><td>Jamie, Director</td></tr>
+    </table>
+
+    <div class="toc">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#s1">Purpose, Scope and Review</a></li>
+        <li><a href="#s2">Network Security and Segregation</a></li>
+        <li><a href="#s3">Endpoint Protection</a></li>
+        <li><a href="#s4">Security Baseline for Daily Operations</a></li>
+        <li><a href="#s5">Access Control and Least Privilege</a></li>
+        <li><a href="#s6">Data Classification and Encryption</a></li>
+        <li><a href="#s7">Incident Response</a></li>
+        <li><a href="#s8">Vulnerability and Threat Management</a></li>
+        <li><a href="#s9">Data Breach Notification</a></li>
+        <li><a href="#s10">Document Control and Revision History</a></li>
+      </ol>
+    </div>
+
+    <!-- ─── Section 1 ──────────────────────────────────────────────── -->
+
+    <h2 id="s1">1. Purpose, Scope and Review</h2>
+
+    <h3>1.1 Purpose</h3>
+    <p>This policy establishes the information security framework for MeshX Software Ltd (&ldquo;MeshX&rdquo;). It defines the security controls, responsibilities, and procedures that protect the confidentiality, integrity, and availability of data processed by MeshX and its SaaS platform.</p>
+
+    <h3>1.2 Scope</h3>
+    <p>This policy applies to:</p>
+    <ul>
+      <li>All employees, directors, contractors, and any person with access to MeshX systems or data.</li>
+      <li>All information assets including production systems, development environments, source code repositories, customer and seller data, marketplace tokens, and internal records.</li>
+      <li>All MeshX services: MeshX Create, MeshX Shop Manager, MeshX Print Network, the meshx.uk website, and supporting infrastructure.</li>
+    </ul>
+
+    <h3>1.3 Review cycle</h3>
+    <p>This policy is reviewed at least every six months, or sooner if triggered by:</p>
+    <ul>
+      <li>A security incident or near-miss.</li>
+      <li>A material change to infrastructure, subprocessors, or data processing activities.</li>
+      <li>Changes to applicable law or regulation (e.g. UK GDPR amendments).</li>
+      <li>Findings from an internal or external security assessment.</li>
+    </ul>
+    <p>All reviews are documented in the revision history (Section 10). The Director is responsible for approving updates and communicating changes to relevant personnel.</p>
+
+    <!-- ─── Section 2 ──────────────────────────────────────────────── -->
+
+    <h2 id="s2">2. Network Security and Segregation</h2>
+
+    <h3>2.1 Architecture overview</h3>
+    <p>MeshX operates a cloud-native architecture with no self-hosted servers exposed directly to the internet. All public-facing traffic passes through managed platforms with built-in network protections:</p>
+    <ul>
+      <li><strong>Cloudflare</strong> &mdash; provides edge delivery, DDoS mitigation, Web Application Firewall (WAF), bot management, and TLS termination for all public endpoints.</li>
+      <li><strong>Supabase (AWS eu-west-3, Paris)</strong> &mdash; managed PostgreSQL database with network-level isolation, connection pooling via PgBouncer, and no direct public database access. All database connections require authenticated credentials over TLS.</li>
+      <li><strong>Cloudflare R2 (Western Europe)</strong> &mdash; object storage with server-side encryption, accessed via authenticated API calls only.</li>
+    </ul>
+
+    <h3>2.2 Segregation</h3>
+    <ul>
+      <li>Production and development environments use separate Supabase projects with independent credentials, preventing cross-contamination of data.</li>
+      <li>Third-party API credentials (marketplace tokens, payment keys) are stored as environment variables or encrypted database columns, never in source code.</li>
+      <li>Administrative access to infrastructure (Supabase dashboard, Cloudflare dashboard, Stripe dashboard) requires individual authenticated accounts with MFA (see Section 4).</li>
+    </ul>
+
+    <h3>2.3 Monitoring</h3>
+    <ul>
+      <li>Cloudflare provides real-time traffic analytics, threat detection, and automated blocking of malicious requests.</li>
+      <li>Supabase provides query-level logging and connection monitoring.</li>
+      <li>Application-level logging captures authentication events, API errors, and security-relevant actions (e.g. session creation, session invalidation, failed login attempts).</li>
+    </ul>
+
+    <!-- ─── Section 3 ──────────────────────────────────────────────── -->
+
+    <h2 id="s3">3. Endpoint Protection</h2>
+
+    <h3>3.1 Anti-malware</h3>
+    <p>All company endpoints (laptops, desktops, servers) run a current, supported operating system with built-in or managed anti-malware protection:</p>
+    <ul>
+      <li><strong>Windows devices:</strong> Microsoft Defender Antivirus with real-time protection, cloud-delivered protection, and automatic sample submission enabled. Defender is kept current via Windows Update.</li>
+      <li>No device is permitted to disable or override real-time protection without documented Director approval and a compensating control.</li>
+    </ul>
+
+    <h3>3.2 Operating system and software updates</h3>
+    <ul>
+      <li>Automatic security updates are enabled on all endpoints.</li>
+      <li>Critical and high-severity patches are applied within 7 days of release.</li>
+      <li>End-of-life operating systems and browsers are not permitted for production or administrative access.</li>
+    </ul>
+
+    <h3>3.3 Device security</h3>
+    <ul>
+      <li>Full-disk encryption (BitLocker on Windows) is enabled on all company devices.</li>
+      <li>Removable media (USB drives) are not used for transferring sensitive data.</li>
+    </ul>
+
+    <!-- ─── Section 4 ──────────────────────────────────────────────── -->
+
+    <h2 id="s4">4. Security Baseline for Daily Operations</h2>
+
+    <h3>4.1 Screen locking</h3>
+    <p>All devices are configured to lock automatically after no more than 5 minutes of inactivity. Users are required to lock their device manually when stepping away.</p>
+
+    <h3>4.2 Password policy</h3>
+    <ul>
+      <li>Minimum 12 characters, combining upper case, lower case, numbers, and symbols.</li>
+      <li>Passwords must be unique per service &mdash; reuse across accounts is prohibited.</li>
+      <li>A password manager is used to generate and store credentials securely.</li>
+      <li>Passwords are never shared, written down, or transmitted in plaintext.</li>
+    </ul>
+
+    <h3>4.3 Multi-factor authentication (MFA)</h3>
+    <p>MFA is enforced on all critical systems:</p>
+    <ul>
+      <li>Email (company accounts)</li>
+      <li>Source control (GitHub)</li>
+      <li>Cloud administration (Supabase, Cloudflare)</li>
+      <li>Payment processing (Stripe)</li>
+      <li>Domain registrar and DNS management</li>
+      <li>Marketplace partner portals (where supported)</li>
+    </ul>
+    <p>TOTP (time-based one-time password) or hardware security keys are the accepted MFA methods. SMS-based MFA is avoided where alternatives exist.</p>
+
+    <h3>4.4 Clean workspace</h3>
+    <p>MeshX operates as a digital-first organisation. Sensitive data is not printed. No physical documents containing personal data or credentials are stored at workstations.</p>
+
+    <!-- ─── Section 5 ──────────────────────────────────────────────── -->
+
+    <h2 id="s5">5. Access Control and Least Privilege</h2>
+
+    <h3>5.1 Principles</h3>
+    <ul>
+      <li><strong>Least privilege:</strong> each person and service account is granted the minimum permissions required to perform their function.</li>
+      <li><strong>Individual accounts:</strong> every person has their own named account on every system. Shared or generic accounts are prohibited.</li>
+      <li><strong>Need-to-know:</strong> access to customer data, marketplace tokens, and payment information is restricted to personnel who require it for their role.</li>
+    </ul>
+
+    <h3>5.2 Administrative access</h3>
+    <ul>
+      <li>Administrative access to production databases, cloud dashboards, and payment systems is limited to the Director and designated senior personnel.</li>
+      <li>Administrative sessions require MFA (see Section 4.3).</li>
+      <li>Direct database access (SQL console) is logged and used only for maintenance, migration, or incident response &mdash; never for routine data retrieval.</li>
+    </ul>
+
+    <h3>5.3 Application-level access control</h3>
+    <p>The MeshX platform implements role-based access control at the application level:</p>
+    <ul>
+      <li>User roles: regular users, staff, and administrators, each with different privileges.</li>
+      <li>Row-Level Security (RLS) policies in the database ensure users can only access their own data, even if application-level checks are bypassed.</li>
+      <li>Server-side session validation on all API routes, with single-session enforcement (logging in on a new device invalidates the previous session).</li>
+      <li>Service-role credentials (used for administrative operations) are used only in server-side code and never exposed to the client.</li>
+    </ul>
+
+    <h3>5.4 Access review and offboarding</h3>
+    <ul>
+      <li>Access rights are reviewed quarterly or when a team member&rsquo;s role changes.</li>
+      <li>On departure, all accounts, credentials, and access tokens are revoked within 24 hours. The offboarding checklist covers: email, source control, cloud dashboards, payment systems, and any marketplace or partner portals.</li>
+    </ul>
+
+    <!-- ─── Section 6 ──────────────────────────────────────────────── -->
+
+    <h2 id="s6">6. Data Classification and Encryption</h2>
+
+    <h3>6.1 Data classification</h3>
+    <p>MeshX classifies data into three tiers:</p>
+    <table class="info-table">
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Examples</th>
+          <th>Handling</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Confidential</strong></td>
+          <td>Marketplace OAuth tokens, Stripe API keys, database credentials, customer payment metadata, session tokens</td>
+          <td>Encrypted at rest and in transit. Access restricted to named personnel with a business need. Never logged in plaintext. Rotated on suspected compromise.</td>
+        </tr>
+        <tr>
+          <td><strong>Internal</strong></td>
+          <td>Customer account data (email, name, company), order details, design files, internal documentation</td>
+          <td>Encrypted in transit. Stored in access-controlled systems. Shared internally on need-to-know basis only.</td>
+        </tr>
+        <tr>
+          <td><strong>Public</strong></td>
+          <td>Published policies, marketing content, public website</td>
+          <td>No access restrictions. Published via HTTPS.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>6.2 Encryption in transit</h3>
+    <ul>
+      <li>All external communications use TLS 1.2 or higher. TLS is enforced at the edge by Cloudflare, with HTTP Strict Transport Security (HSTS) headers set.</li>
+      <li>API calls to third-party services (Stripe, Etsy, eBay, TikTok Shop) use HTTPS exclusively.</li>
+      <li>Database connections use TLS-encrypted channels (Supabase enforces TLS for all PostgreSQL connections).</li>
+    </ul>
+
+    <h3>6.3 Encryption at rest</h3>
+    <ul>
+      <li><strong>Database:</strong> Supabase uses AES-256 encryption at rest for all stored data, managed by the platform.</li>
+      <li><strong>Object storage:</strong> Cloudflare R2 applies server-side encryption to all stored objects.</li>
+      <li><strong>Endpoints:</strong> company devices use full-disk encryption (BitLocker).</li>
+      <li><strong>Backups:</strong> database backups are encrypted by Supabase using the same at-rest encryption. No unencrypted copies of production data exist outside managed infrastructure.</li>
+    </ul>
+
+    <!-- ─── Section 7 ──────────────────────────────────────────────── -->
+
+    <h2 id="s7">7. Incident Response</h2>
+
+    <h3>7.1 Definition</h3>
+    <p>A security incident is any event that compromises or may compromise the confidentiality, integrity, or availability of MeshX systems or data. Examples include: unauthorised access, credential compromise, data exfiltration, malware infection, denial of service, or accidental exposure of personal data.</p>
+
+    <h3>7.2 Roles and responsibilities</h3>
+    <table class="info-table">
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Person</th>
+          <th>Responsibility</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Incident Lead</strong></td>
+          <td>Director</td>
+          <td>Overall accountability, escalation decisions, external communications, regulatory notifications</td>
+        </tr>
+        <tr>
+          <td><strong>Technical Responder</strong></td>
+          <td>Director / designated engineer</td>
+          <td>Investigation, containment, remediation, evidence preservation</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>7.3 Response procedure</h3>
+    <ol>
+      <li><strong>Detect and report:</strong> any person who suspects a security incident must report it immediately to the Incident Lead via <a href="mailto:security@meshx.uk">security@meshx.uk</a> or direct message. Reports are acknowledged within 4 hours during business hours.</li>
+      <li><strong>Triage and contain:</strong> the Incident Lead assesses severity and scope. Immediate containment actions are taken (e.g. revoking compromised credentials, disabling affected accounts, isolating affected systems).</li>
+      <li><strong>Investigate:</strong> the Technical Responder gathers evidence (logs, access records, affected data scope) and determines root cause.</li>
+      <li><strong>Notify:</strong> if personal data is involved, the breach notification procedure in Section 9 is activated.</li>
+      <li><strong>Remediate:</strong> the vulnerability or control failure that allowed the incident is fixed. Preventive measures are implemented.</li>
+      <li><strong>Post-incident review:</strong> a post-mortem is written within 5 business days, documenting what happened, the timeline, impact, root cause, and actions taken. Lessons learned are fed back into this policy at the next review.</li>
+    </ol>
+
+    <h3>7.4 Communication channels</h3>
+    <ul>
+      <li>Internal escalation: direct message to Director</li>
+      <li>External reporting: <a href="mailto:security@meshx.uk">security@meshx.uk</a></li>
+      <li>Regulatory: ICO breach reporting portal (<a href="https://ico.org.uk">ico.org.uk</a>)</li>
+      <li>Marketplace partners: via partner support channels or designated security contacts</li>
+    </ul>
+
+    <!-- ─── Section 8 ──────────────────────────────────────────────── -->
+
+    <h2 id="s8">8. Vulnerability and Threat Management</h2>
+
+    <h3>8.1 Dependency management</h3>
+    <ul>
+      <li>Application dependencies (npm packages, Python packages) are audited regularly using npm audit and equivalent tools.</li>
+      <li>Critical and high-severity dependency vulnerabilities are patched or mitigated within 7 days of disclosure.</li>
+      <li>Dependencies are pinned to specific versions and updated deliberately, not automatically, to prevent supply chain attacks.</li>
+    </ul>
+
+    <h3>8.2 Platform and OS patching</h3>
+    <ul>
+      <li>Managed platforms (Supabase, Cloudflare) handle infrastructure-level patching automatically.</li>
+      <li>Company endpoints receive automatic OS security updates (Windows Update) with critical patches applied within 7 days.</li>
+    </ul>
+
+    <h3>8.3 Application security</h3>
+    <ul>
+      <li>All application code is stored in private Git repositories with access restricted to authorised personnel.</li>
+      <li>Code changes are reviewed before deployment.</li>
+      <li>The application implements protections against common web vulnerabilities (OWASP Top 10), including: parameterised database queries, input validation, CSRF protection, Content Security Policy headers, and secure session management.</li>
+      <li>Cloudflare WAF provides an additional layer of protection against SQL injection, XSS, and other common attack patterns.</li>
+    </ul>
+
+    <h3>8.4 Threat awareness</h3>
+    <ul>
+      <li>Critical CVE disclosures relevant to our technology stack (Node.js, Next.js, PostgreSQL, Python) are monitored and assessed for applicability.</li>
+      <li>Cloudflare threat intelligence provides automated protection against known malicious IPs and attack patterns.</li>
+    </ul>
+
+    <!-- ─── Section 9 ──────────────────────────────────────────────── -->
+
+    <h2 id="s9">9. Data Breach Notification</h2>
+
+    <h3>9.1 Scope</h3>
+    <p>This procedure applies to any confirmed or suspected breach involving personal data processed by MeshX, whether the data belongs to customers, sellers, marketplace end-buyers, or staff.</p>
+
+    <h3>9.2 Internal reporting</h3>
+    <p>Any person who becomes aware of a potential data breach must report it to the Incident Lead (Director) within <strong>24 hours</strong> of discovery, using the channels defined in Section 7.4.</p>
+
+    <h3>9.3 Assessment</h3>
+    <p>Within <strong>48 hours</strong> of the initial report, the Incident Lead will:</p>
+    <ul>
+      <li>Determine whether personal data has been compromised and the nature of that data.</li>
+      <li>Assess the number of individuals affected.</li>
+      <li>Evaluate the likely risk to the rights and freedoms of affected individuals (considering the nature, sensitivity, and volume of data; ease of identification; severity of consequences).</li>
+      <li>Document findings in an incident log.</li>
+    </ul>
+
+    <h3>9.4 Regulatory notification</h3>
+    <p>If the breach is likely to result in a risk to individuals&rsquo; rights and freedoms, MeshX will notify the Information Commissioner&rsquo;s Office (ICO) <strong>within 72 hours</strong> of becoming aware of the breach, as required by UK GDPR Article 33. The notification will include:</p>
+    <ul>
+      <li>Nature of the breach and categories of data affected.</li>
+      <li>Approximate number of individuals affected.</li>
+      <li>Likely consequences of the breach.</li>
+      <li>Measures taken or proposed to address the breach and mitigate adverse effects.</li>
+      <li>Contact details of the person handling the matter.</li>
+    </ul>
+
+    <h3>9.5 Notification to affected individuals</h3>
+    <p>Where the breach is likely to result in a <strong>high risk</strong> to individuals&rsquo; rights and freedoms, MeshX will notify affected individuals <strong>without undue delay</strong>, in clear and plain language, describing:</p>
+    <ul>
+      <li>The nature of the breach.</li>
+      <li>The likely consequences.</li>
+      <li>The measures taken to address the breach.</li>
+      <li>Recommendations for the individual to protect themselves.</li>
+      <li>Contact details for further information.</li>
+    </ul>
+
+    <h3>9.6 Notification to marketplace partners</h3>
+    <p>Where the breach involves data obtained via marketplace APIs (e.g. TikTok Shop, Etsy, eBay), MeshX will notify the affected marketplace partner(s) via their designated security or partner support channels, in accordance with the partner&rsquo;s data processing agreement or API terms.</p>
+
+    <h3>9.7 Record keeping</h3>
+    <p>All breaches, whether or not they are reportable to the ICO, are recorded in an internal breach register. Each entry documents: the facts of the breach, its effects, the remedial action taken, and the rationale for any decision not to notify the ICO or affected individuals.</p>
+
+    <!-- ─── Section 10 ─────────────────────────────────────────────── -->
+
+    <h2 id="s10">10. Document Control and Revision History</h2>
+
+    <table class="info-table">
+      <thead>
+        <tr>
+          <th>Version</th>
+          <th>Date</th>
+          <th>Author</th>
+          <th>Changes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>0.1</td>
+          <td>22 March 2026</td>
+          <td>Jamie</td>
+          <td>Initial security overview (summary document)</td>
+        </tr>
+        <tr>
+          <td>1.0</td>
+          <td>6 April 2026</td>
+          <td>Jamie</td>
+          <td>Full policy: expanded to 10 sections covering network security, endpoint protection, security baseline, access control, data classification, incident response, vulnerability management, and data breach notification. Replaces previous summary document.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:2rem;"><strong>Approved by:</strong> Jamie, Director &mdash; MeshX Software Ltd</p>
+    <p><strong>Date:</strong> 6 April 2026</p>
+
+    <p class="meta"><strong>Last updated:</strong> 6 April 2026 &middot; Version 1.0</p>
+  </div>
+
+  <footer class="legal-footer">
+    <div class="legal-footer-inner">
+      <a class="legal-footer-logo" href="index.html">
+        <img src="assets/mx_meshx_logo_dark.png" width="240" height="80" alt="MeshX" />
+      </a>
+      <nav class="legal-footer-nav">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="cookies.html">Cookies</a>
+        <a href="security.html">Security</a>
+      </nav>
+      <p class="footer-etsy-note">
+        The term &ldquo;Etsy&rdquo; is a trademark of Etsy, Inc. This application uses the Etsy API but is not endorsed or certified by Etsy, Inc. &bull; &ldquo;eBay&rdquo; is a trademark of eBay Inc. MeshX is not affiliated with or endorsed by eBay Inc. &bull; &ldquo;TikTok Shop&rdquo; is a service of TikTok Ltd. MeshX is not affiliated with or endorsed by TikTok Ltd.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
