@@ -1,43 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Pages only. Fragment URLs (/#live, /#coming-soon, /#about) were listed here
+  as if they were separate pages: Google fetches them, gets the homepage every
+  time, and reads three duplicates of the same document. A sitemap is a list of
+  URLs that return distinct content, not a table of contents for one page.
+
+  information-security-policy.html exists on the site and was missing from the
+  list entirely.
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://meshx.uk/</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://meshx.uk/#live</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://meshx.uk/#coming-soon</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://meshx.uk/#about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://meshx.uk/privacy.html</loc>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://meshx.uk/terms.html</loc>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://meshx.uk/cookies.html</loc>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://meshx.uk/security.html</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://meshx.uk/information-security-policy.html</loc>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
